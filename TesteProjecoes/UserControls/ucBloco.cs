@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using TesteProjecoes.Model;
 using TesteProjecoes.Calc;
 using TesteProjecoes.Model.Extensions;
+using TesteProjecoes.Calc.Extensions;
 
 namespace TesteProjecoes.UserControls
 {

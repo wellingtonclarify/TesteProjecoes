@@ -93,6 +93,8 @@ namespace TesteProjecoes.Calc
                     return "IsPool";
                 case 11:
                     return "Ativo";
+                case 12:
+                    return "SalarioBase";
                 default:
                     return "";
             }

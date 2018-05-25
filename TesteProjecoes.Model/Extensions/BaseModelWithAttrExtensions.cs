@@ -5,6 +5,7 @@ namespace TesteProjecoes.Model.Extensions
 {
     public static class BaseModelWithAttrExtensions
     {
+        /*
         public static IList<TabelaAtributo> GetModelAsAttributes<T>(this T model) where T : BaseModelWithAttr
         {
             var result = new List<TabelaAtributo>();
@@ -23,6 +24,33 @@ namespace TesteProjecoes.Model.Extensions
                 result.Add(atributo);
             }
 
+            return result;
+        }
+        */
+
+        public static IList<TabelaAtributo> GetModelAsAttributes(this Posicao model)
+        {
+            var result = new List<TabelaAtributo>();
+            result.Add(new TabelaAtributo(model.Id, 1, model.Id));
+            result.Add(new TabelaAtributo(model.Id, 2, model.Nome));
+            result.Add(new TabelaAtributo(model.Id, 9, model.QtdHoras));
+            result.Add(new TabelaAtributo(model.Id, 10, model.IsPool));
+            return result;
+        }
+
+        public static IList<TabelaAtributo> GetModelAsAttributes(this Funcionario model)
+        {
+            var result = new List<TabelaAtributo>();
+            result.Add(new TabelaAtributo(model.Id, 1, model.Id));
+            result.Add(new TabelaAtributo(model.Id, 2, model.Nome));
+            result.Add(new TabelaAtributo(model.Id, 3, model.Nascimento));
+            result.Add(new TabelaAtributo(model.Id, 4, model.Sexo));
+            result.Add(new TabelaAtributo(model.Id, 5, model.Salario));
+            result.Add(new TabelaAtributo(model.Id, 6, model.Idade));
+            result.Add(new TabelaAtributo(model.Id, 7, model.Admissao));
+            result.Add(new TabelaAtributo(model.Id, 8, model.Rescisao));
+            result.Add(new TabelaAtributo(model.Id, 11, model.Ativo));
+            result.Add(new TabelaAtributo(model.Id, 12, model.Cargo.SalarioBase));
             return result;
         }
 

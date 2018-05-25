@@ -124,8 +124,8 @@ namespace TesteProjecoes.Model
 
             this.Regra = new[]
             {
-                new Regra(1, "Salario * 0.10") { Criterios = new [] { c1, c2, c3, c4}.ToList() },
-                new Regra(2, "Salario * 0.11") { Criterios = new [] { c5, c6, c7, c8}.ToList() },
+                new Regra(1, "SalarioBase * 0.10") { Criterios = new [] { c1, c2, c3, c4}.ToList() },
+                new Regra(2, "SalarioBase * 0.11") { Criterios = new [] { c5, c6, c7, c8}.ToList() },
                 new Regra(3, "QtdHoras * 50") { Criterios = new [] { c9 }.ToList() },
             }.ToList();
 

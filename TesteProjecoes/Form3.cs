@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using TesteProjecoes.Calc;
+using TesteProjecoes.Calc.Extensions;
 using TesteProjecoes.Model;
 using TesteProjecoes.Model.Extensions;
 

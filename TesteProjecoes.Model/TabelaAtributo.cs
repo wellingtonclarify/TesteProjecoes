@@ -8,5 +8,17 @@ namespace TesteProjecoes.Model
         public int RegistroId { get; set; }
         public int AtributoId { get; set; }
         public object Valor { get; set; }
+
+        public TabelaAtributo()
+        {
+
+        }
+
+        public TabelaAtributo(int registroId, int atributoId, object valor)
+        {
+            RegistroId = registroId;
+            AtributoId = atributoId;
+            Valor = valor;
+        }
     }
 }

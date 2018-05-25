@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="Evento.cs" />
     <Compile Include="Extensions\ResultDictionaryExtensions.cs" />
+    <Compile Include="Extensions\TLExtensions.cs" />
     <Compile Include="FuncionarioTL.cs" />
     <Compile Include="IMarcos.cs" />
     <Compile Include="PosicaoTL.cs" />
