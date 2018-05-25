@@ -15,6 +15,12 @@ namespace TesteProjecoes.Calc
 
         public double Calculate()
         {
+            ResultDictionary results = null;
+            return Calculate(out results);
+        }
+
+        public double Calculate(out ResultDictionary results)
+        {
             var dataTable = new DataTable();
 
             foreach (var atributo in Parameters.Atributos)
@@ -38,15 +44,20 @@ namespace TesteProjecoes.Calc
             }
             dataTable.Rows.Add(dataRow);
 
+            var partialResults = new ResultDictionary();
             double result = 0;
             foreach (var regra in Parameters.Regras)
             {
                 var objResult = dataRow["Formula_" + regra.Id];
                 double partialResult = 0;
                 double.TryParse(objResult.ToString(), out partialResult);
-                if(dataRow["Regra_" + regra.Id].Equals(true))
+                if (dataRow["Regra_" + regra.Id].Equals(true))
+                {
                     result += partialResult;
+                    partialResults.Add(dataTable.Columns["Formula_" + regra.Id].Expression, partialResult);
+                }
             }
+            results = partialResults;
             return result;
         }
 

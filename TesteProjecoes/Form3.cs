@@ -157,7 +157,20 @@ namespace TesteProjecoes
             }
         }
 
+        private double Calcular(out ResultDictionary results)
+        {
+            var posicao = GetPosicao();
+            var referencia = GetReferencia();
+            return Calcular(posicao, referencia, out results);
+        }
+
         private double Calcular(PosicaoTL posicao, DateTime referencia)
+        {
+            ResultDictionary results = null;
+            return Calcular(posicao, referencia, out results);
+        }
+
+        private double Calcular(PosicaoTL posicao, DateTime referencia, out ResultDictionary results)
         {
             IList<TabelaAtributo> modelAsAttributes = null;
             IList<Regra> regras = null;
@@ -177,7 +190,7 @@ namespace TesteProjecoes
 
             var finalModel = TrataSubstituicoes(posicao, referencia, modelAsAttributes);
             var parameters = new CalculatorParams(finalModel, regras);
-            var result = new Calculator(parameters).Calculate();
+            var result = new Calculator(parameters).Calculate(out results);
             return result;
         }
 
@@ -242,14 +255,18 @@ namespace TesteProjecoes
 
         private void xDataGridView1_CellContextMenuStripNeeded(object sender, DataGridViewCellContextMenuStripNeededEventArgs e)
         {
-            if (e.RowIndex == -1 || e.ColumnIndex < 2 || IsCalcStep)
+            if (e.RowIndex == -1 || e.ColumnIndex < 2)
                 return;
 
             xDataGridView1.CurrentCell = xDataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex];
             var posicao = GetPosicao();
             var marco = GetMarco();
 
-            if (posicao.IsPool)
+            if(IsCalcStep)
+            {
+                e.ContextMenuStrip = xContextMenuStrip4;
+            }
+            else if (posicao.IsPool)
             {
                 limparToolStripMenuItem1.Enabled = marco.Eventos.Any();
                 e.ContextMenuStrip = xContextMenuStrip3;
@@ -273,8 +290,14 @@ namespace TesteProjecoes
         private Marco GetMarco()
         {
             var posicao = GetPosicao();
-            var referencia = DateTime.Parse(xDataGridView1.Columns[xDataGridView1.CurrentCell.ColumnIndex].Name);
+            var referencia = GetReferencia();
             return GetMarco(posicao, referencia);
+        }
+
+        private DateTime GetReferencia()
+        {
+            var referencia = DateTime.Parse(xDataGridView1.Columns[xDataGridView1.CurrentCell.ColumnIndex].Name);
+            return referencia;
         }
 
         private Marco GetMarco(PosicaoTL posicao, DateTime referencia)
@@ -361,6 +384,16 @@ namespace TesteProjecoes
         {
             _parametros.AplicarCores = xCheckBox1.Checked;
             xDataGridView1.Refresh();
+        }
+
+        private void verDetalhesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ResultDictionary results;
+            Calcular(out results);
+            var text = string.Join(Environment.NewLine, results.Select(r => string.Format("{0} = {1}", r.Key, r.Value)));
+            if (string.IsNullOrEmpty(text))
+                text = "Sem resultados";
+            MessageBox.Show(text);
         }
     }
 }

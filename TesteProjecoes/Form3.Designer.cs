@@ -49,9 +49,12 @@
             this.ucLengenda2 = new TesteProjecoes.UserControls.ucLengenda();
             this.ucLengenda3 = new TesteProjecoes.UserControls.ucLengenda();
             this.xCheckBox1 = new TesteProjecoes.UserControls.XCheckBox();
+            this.xContextMenuStrip4 = new TesteProjecoes.UserControls.XContextMenuStrip();
+            this.verDetalhesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.xDataGridView1)).BeginInit();
             this.xContextMenuStrip2.SuspendLayout();
             this.xContextMenuStrip3.SuspendLayout();
+            this.xContextMenuStrip4.SuspendLayout();
             this.SuspendLayout();
             // 
             // xLabel1
@@ -170,24 +173,24 @@
             this.toolStripSeparator2,
             this.limparToolStripMenuItem1});
             this.xContextMenuStrip3.Name = "xContextMenuStrip1";
-            this.xContextMenuStrip3.Size = new System.Drawing.Size(181, 76);
+            this.xContextMenuStrip3.Size = new System.Drawing.Size(167, 54);
             // 
             // toolStripMenuItem9
             // 
             this.toolStripMenuItem9.Name = "toolStripMenuItem9";
-            this.toolStripMenuItem9.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItem9.Size = new System.Drawing.Size(166, 22);
             this.toolStripMenuItem9.Text = "Alterar Qtd Horas";
             this.toolStripMenuItem9.Click += new System.EventHandler(this.toolStripMenuItem9_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(163, 6);
             // 
             // limparToolStripMenuItem1
             // 
             this.limparToolStripMenuItem1.Name = "limparToolStripMenuItem1";
-            this.limparToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.limparToolStripMenuItem1.Size = new System.Drawing.Size(166, 22);
             this.limparToolStripMenuItem1.Text = "Limpar";
             this.limparToolStripMenuItem1.Click += new System.EventHandler(this.limparToolStripMenuItem1_Click);
             // 
@@ -242,6 +245,20 @@
             this.xCheckBox1.UseVisualStyleBackColor = true;
             this.xCheckBox1.CheckedChanged += new System.EventHandler(this.xCheckBox1_CheckedChanged);
             // 
+            // xContextMenuStrip4
+            // 
+            this.xContextMenuStrip4.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.verDetalhesToolStripMenuItem});
+            this.xContextMenuStrip4.Name = "xContextMenuStrip4";
+            this.xContextMenuStrip4.Size = new System.Drawing.Size(181, 48);
+            // 
+            // verDetalhesToolStripMenuItem
+            // 
+            this.verDetalhesToolStripMenuItem.Name = "verDetalhesToolStripMenuItem";
+            this.verDetalhesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.verDetalhesToolStripMenuItem.Text = "Ver Detalhes";
+            this.verDetalhesToolStripMenuItem.Click += new System.EventHandler(this.verDetalhesToolStripMenuItem_Click);
+            // 
             // Form3
             // 
             this.ClientSize = new System.Drawing.Size(817, 306);
@@ -261,6 +278,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.xDataGridView1)).EndInit();
             this.xContextMenuStrip2.ResumeLayout(false);
             this.xContextMenuStrip3.ResumeLayout(false);
+            this.xContextMenuStrip4.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -289,5 +307,7 @@
         private UserControls.ucLengenda ucLengenda2;
         private UserControls.ucLengenda ucLengenda3;
         private UserControls.XCheckBox xCheckBox1;
+        private UserControls.XContextMenuStrip xContextMenuStrip4;
+        private System.Windows.Forms.ToolStripMenuItem verDetalhesToolStripMenuItem;
     }
 }

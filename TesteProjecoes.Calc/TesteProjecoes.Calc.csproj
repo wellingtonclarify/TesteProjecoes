@@ -41,9 +41,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Evento.cs" />
+    <Compile Include="Extensions\ResultDictionaryExtensions.cs" />
     <Compile Include="FuncionarioTL.cs" />
     <Compile Include="IMarcos.cs" />
     <Compile Include="PosicaoTL.cs" />
+    <Compile Include="ResultDictionary.cs" />
     <Compile Include="TimeLine.cs" />
     <Compile Include="CalculatorParams.cs" />
     <Compile Include="Calculator.cs" />
@@ -55,8 +57,6 @@
       <Name>TesteProjecoes.Model</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Extensions\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
