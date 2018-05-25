@@ -38,6 +38,7 @@
             this.xContextMenuStrip2 = new TesteProjecoes.UserControls.XContextMenuStrip();
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
+            this.subirDeCargoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.limparToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.xContextMenuStrip3 = new TesteProjecoes.UserControls.XContextMenuStrip();
@@ -51,6 +52,7 @@
             this.xCheckBox1 = new TesteProjecoes.UserControls.XCheckBox();
             this.xContextMenuStrip4 = new TesteProjecoes.UserControls.XContextMenuStrip();
             this.verDetalhesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ucLengenda4 = new TesteProjecoes.UserControls.ucLengenda();
             ((System.ComponentModel.ISupportInitialize)(this.xDataGridView1)).BeginInit();
             this.xContextMenuStrip2.SuspendLayout();
             this.xContextMenuStrip3.SuspendLayout();
@@ -112,7 +114,7 @@
             this.xDataGridView1.Name = "xDataGridView1";
             this.xDataGridView1.RowHeadersVisible = false;
             this.xDataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.xDataGridView1.Size = new System.Drawing.Size(788, 256);
+            this.xDataGridView1.Size = new System.Drawing.Size(878, 256);
             this.xDataGridView1.TabIndex = 4;
             this.xDataGridView1.CellContextMenuStripNeeded += new System.Windows.Forms.DataGridViewCellContextMenuStripNeededEventHandler(this.xDataGridView1_CellContextMenuStripNeeded);
             this.xDataGridView1.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.xDataGridView1_CellFormatting);
@@ -135,34 +137,42 @@
             this.xContextMenuStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem4,
             this.toolStripMenuItem5,
+            this.subirDeCargoToolStripMenuItem,
             this.toolStripSeparator1,
             this.limparToolStripMenuItem});
             this.xContextMenuStrip2.Name = "xContextMenuStrip1";
-            this.xContextMenuStrip2.Size = new System.Drawing.Size(127, 76);
+            this.xContextMenuStrip2.Size = new System.Drawing.Size(130, 98);
             // 
             // toolStripMenuItem4
             // 
             this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-            this.toolStripMenuItem4.Size = new System.Drawing.Size(126, 22);
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(129, 22);
             this.toolStripMenuItem4.Text = "Admissão";
             this.toolStripMenuItem4.Click += new System.EventHandler(this.toolStripMenuItem4_Click);
             // 
             // toolStripMenuItem5
             // 
             this.toolStripMenuItem5.Name = "toolStripMenuItem5";
-            this.toolStripMenuItem5.Size = new System.Drawing.Size(126, 22);
+            this.toolStripMenuItem5.Size = new System.Drawing.Size(129, 22);
             this.toolStripMenuItem5.Text = "Demissão";
             this.toolStripMenuItem5.Click += new System.EventHandler(this.toolStripMenuItem5_Click);
+            // 
+            // subirDeCargoToolStripMenuItem
+            // 
+            this.subirDeCargoToolStripMenuItem.Name = "subirDeCargoToolStripMenuItem";
+            this.subirDeCargoToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
+            this.subirDeCargoToolStripMenuItem.Text = "Promoção";
+            this.subirDeCargoToolStripMenuItem.Click += new System.EventHandler(this.subirDeCargoToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(123, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(126, 6);
             // 
             // limparToolStripMenuItem
             // 
             this.limparToolStripMenuItem.Name = "limparToolStripMenuItem";
-            this.limparToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
+            this.limparToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
             this.limparToolStripMenuItem.Text = "Limpar";
             this.limparToolStripMenuItem.Click += new System.EventHandler(this.limparToolStripMenuItem_Click);
             // 
@@ -250,18 +260,28 @@
             this.xContextMenuStrip4.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.verDetalhesToolStripMenuItem});
             this.xContextMenuStrip4.Name = "xContextMenuStrip4";
-            this.xContextMenuStrip4.Size = new System.Drawing.Size(181, 48);
+            this.xContextMenuStrip4.Size = new System.Drawing.Size(139, 26);
             // 
             // verDetalhesToolStripMenuItem
             // 
             this.verDetalhesToolStripMenuItem.Name = "verDetalhesToolStripMenuItem";
-            this.verDetalhesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.verDetalhesToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.verDetalhesToolStripMenuItem.Text = "Ver Detalhes";
             this.verDetalhesToolStripMenuItem.Click += new System.EventHandler(this.verDetalhesToolStripMenuItem_Click);
             // 
+            // ucLengenda4
+            // 
+            this.ucLengenda4.Cor = System.Drawing.Color.Blue;
+            this.ucLengenda4.Location = new System.Drawing.Point(811, 6);
+            this.ucLengenda4.Name = "ucLengenda4";
+            this.ucLengenda4.Size = new System.Drawing.Size(124, 25);
+            this.ucLengenda4.TabIndex = 11;
+            this.ucLengenda4.Texto = "Promoção";
+            // 
             // Form3
             // 
-            this.ClientSize = new System.Drawing.Size(817, 306);
+            this.ClientSize = new System.Drawing.Size(907, 306);
+            this.Controls.Add(this.ucLengenda4);
             this.Controls.Add(this.xCheckBox1);
             this.Controls.Add(this.ucLengenda3);
             this.Controls.Add(this.ucLengenda2);
@@ -309,5 +329,7 @@
         private UserControls.XCheckBox xCheckBox1;
         private UserControls.XContextMenuStrip xContextMenuStrip4;
         private System.Windows.Forms.ToolStripMenuItem verDetalhesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem subirDeCargoToolStripMenuItem;
+        private UserControls.ucLengenda ucLengenda4;
     }
 }

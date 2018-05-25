@@ -48,6 +48,7 @@
     <Compile Include="Context.cs" />
     <Compile Include="Extensions\BaseModelExtensions.cs" />
     <Compile Include="Extensions\BaseModelWithAttrExtensions.cs" />
+    <Compile Include="Extensions\CargoExtensions.cs" />
     <Compile Include="Extensions\ObjectExtensions.cs" />
     <Compile Include="Funcionario.cs" />
     <Compile Include="Criterio.cs" />

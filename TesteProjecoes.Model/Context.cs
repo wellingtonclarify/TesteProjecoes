@@ -97,7 +97,7 @@ namespace TesteProjecoes.Model
 
             this.Funcionario = new[]
             {
-                new Funcionario(1, "Wellington", new DateTime(1992, 3, 6), "M", 5000.00M, Cargo.GetById(3), DateTime.Today),
+                new Funcionario(1, "Wellington", new DateTime(1992, 3, 6), "M", 5000.00M, Cargo.GetById(5), DateTime.Today),
                 new Funcionario(2, "Leonardo", new DateTime(2002, 3, 6), "M", 900.00M, Cargo.GetById(8), DateTime.Today),
                 new Funcionario(3, "Bianca", new DateTime(1992, 3, 6), "F", 5000.00M, Cargo.GetById(13), DateTime.Today),
                 new Funcionario(4, "Luiza", new DateTime(2002, 3, 6), "F", 900.00M, Cargo.GetById(18)),

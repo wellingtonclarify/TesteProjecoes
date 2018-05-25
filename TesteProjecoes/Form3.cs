@@ -148,7 +148,11 @@ namespace TesteProjecoes
             {
                 cellStyle.BackColor = Color.Red;
             }
-            else if(_parametros.AplicarCores && marco.Eventos.Any(x => x.Tipo == enumTipoEvento.AlteraQtdPool))
+            else if(_parametros.AplicarCores && marco.Eventos.Any(x => x.Tipo == enumTipoEvento.SubirCargo))
+            {
+                cellStyle.BackColor = Color.Blue;
+            }
+            else if (_parametros.AplicarCores && marco.Eventos.Any(x => x.Tipo == enumTipoEvento.AlteraQtdPool))
             {
                 cellStyle.BackColor = Color.Yellow;
             }
@@ -175,27 +179,30 @@ namespace TesteProjecoes
         {
             IList<TabelaAtributo> modelAsAttributes = null;
             IList<Regra> regras = null;
+            object baseObject = null;
             using (var context = new Context())
             {
                 if (posicao.IsPool)
                 {
                     modelAsAttributes = posicao.GetModelAsAttributes();
+                    baseObject = posicao;
                     regras = context.Regra.Where(r => r.Id == 3).ToList();
                 }
                 else
                 {
                     modelAsAttributes = posicao.FuncionarioUnico.GetModelAsAttributes();
+                    baseObject = posicao.FuncionarioUnico;
                     regras = context.Regra.Where(r => r.Id < 3).ToList();
                 } 
             }
 
-            var finalModel = TrataSubstituicoes(posicao, referencia, modelAsAttributes);
+            var finalModel = TrataSubstituicoes(posicao, referencia, baseObject, modelAsAttributes);
             var parameters = new CalculatorParams(finalModel, regras);
             var result = new Calculator(parameters).Calculate(out results);
             return result;
         }
 
-        private IList<TabelaAtributo> TrataSubstituicoes(PosicaoTL posicao, DateTime referencia, IList<TabelaAtributo> modelAsAttributes)
+        private IList<TabelaAtributo> TrataSubstituicoes(PosicaoTL posicao, DateTime referencia, object baseObject, IList<TabelaAtributo> modelAsAttributes)
         {
             var eventos = GetMarco(posicao, referencia).Eventos.Clone();
 
@@ -204,6 +211,8 @@ namespace TesteProjecoes
                 eventos.Add(new Evento(enumTipoEvento.Admissao));
             if (ExisteEventoNoPassado(posicao, referencia, enumTipoEvento.Demissao))
                 eventos.Add(new Evento(enumTipoEvento.Demissao));
+            if (ExisteEventoNoPassado(posicao, referencia, enumTipoEvento.SubirCargo))
+                eventos.Add(new Evento(enumTipoEvento.SubirCargo));
             //
 
             if (eventos == null || eventos.Count() == 0)
@@ -218,6 +227,10 @@ namespace TesteProjecoes
                         break;
                     case enumTipoEvento.Demissao:
                         modelAsAttributes.Single(a => a.AtributoId == 8).Valor = referencia;
+                        break;
+                    case enumTipoEvento.SubirCargo:
+                        var func = (Funcionario)baseObject;
+                        modelAsAttributes.Single(a => a.AtributoId == 12).Valor = func.Cargo.ObterCargoSuperior().SalarioBase;
                         break;
                     case enumTipoEvento.AlteraQtdPool:
                         modelAsAttributes.Single(a => a.AtributoId == 9).Valor = 320;
@@ -277,6 +290,7 @@ namespace TesteProjecoes
                 limparToolStripMenuItem.Enabled = marco.Eventos.Any();
                 toolStripMenuItem4.Enabled = !posicao.FuncionarioUnico.Admissao.HasValue && !ExisteEventoNaLinhaTempo(posicao, marco.Referencia, enumTipoEvento.Admissao);
                 toolStripMenuItem5.Enabled = !posicao.FuncionarioUnico.Rescisao.HasValue && !ExisteEventoNaLinhaTempo(posicao, marco.Referencia, enumTipoEvento.Demissao) && (posicao.FuncionarioUnico.Admissao.HasValue || ExisteEventoNoPassado(posicao, marco.Referencia, enumTipoEvento.Admissao));
+                subirDeCargoToolStripMenuItem.Enabled = posicao.FuncionarioUnico.Cargo.PodeSubirCargo() && !ExisteEventoNaLinhaTempo(posicao, marco.Referencia, enumTipoEvento.SubirCargo);
                 e.ContextMenuStrip = xContextMenuStrip2;
             }
         }
@@ -395,6 +409,11 @@ namespace TesteProjecoes
             if (string.IsNullOrEmpty(text))
                 text = "Sem resultados";
             MessageBox.Show(text);
+        }
+
+        private void subirDeCargoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AdicionaEvento(enumTipoEvento.SubirCargo);
         }
     }
 }
