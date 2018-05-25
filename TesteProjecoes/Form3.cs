@@ -206,18 +206,21 @@ namespace TesteProjecoes
         {
             var eventos = GetMarco(posicao, referencia).Eventos.Clone();
 
-            //Trata eventos permanentes e únicos
+            //Trata eventos permanentes
             if (ExisteEventoNoPassado(posicao, referencia, enumTipoEvento.Admissao))
                 eventos.Add(new Evento(enumTipoEvento.Admissao));
             if (ExisteEventoNoPassado(posicao, referencia, enumTipoEvento.Demissao))
                 eventos.Add(new Evento(enumTipoEvento.Demissao));
-            if (ExisteEventoNoPassado(posicao, referencia, enumTipoEvento.SubirCargo))
+
+            var qtd = ObtemQtdOcorrenciasEventoNoPassado(posicao, referencia, enumTipoEvento.SubirCargo);
+            for (int i = 1; i <= qtd; i++)
                 eventos.Add(new Evento(enumTipoEvento.SubirCargo));
             //
 
             if (eventos == null || eventos.Count() == 0)
                 return modelAsAttributes;
 
+            object localBaseObject = baseObject;
             foreach (var evento in eventos)
             {
                 switch (evento.Tipo)
@@ -229,8 +232,11 @@ namespace TesteProjecoes
                         modelAsAttributes.Single(a => a.AtributoId == 8).Valor = referencia;
                         break;
                     case enumTipoEvento.SubirCargo:
-                        var func = (Funcionario)baseObject;
-                        modelAsAttributes.Single(a => a.AtributoId == 12).Valor = func.Cargo.ObterCargoSuperior().SalarioBase;
+                        var func = (Funcionario)localBaseObject;
+                        func = func.Clone();
+                        func.Cargo = func.Cargo.ObterCargoSuperior();
+                        localBaseObject = func;
+                        modelAsAttributes.Single(a => a.AtributoId == 12).Valor = func.Cargo.SalarioBase;
                         break;
                     case enumTipoEvento.AlteraQtdPool:
                         modelAsAttributes.Single(a => a.AtributoId == 9).Valor = 320;
@@ -241,6 +247,14 @@ namespace TesteProjecoes
             }
 
             return modelAsAttributes;
+        }
+
+        private int ObtemQtdOcorrenciasEventoNaLinhaTempo(PosicaoTL posicao, DateTime referencia, enumTipoEvento tipo)
+        {
+            return (posicao.IsPool ? posicao.Marcos : posicao.FuncionarioUnico.Marcos)
+                //.Where(m => m.Referencia != referencia)
+                .SelectMany(m => m.Eventos)
+                .Count(x => x.Tipo == tipo);
         }
 
         private bool ExisteEventoNaLinhaTempo(PosicaoTL posicao, DateTime referencia, enumTipoEvento tipo)
@@ -257,6 +271,14 @@ namespace TesteProjecoes
                 .Where(m => m.Referencia < referencia)
                 .SelectMany(m => m.Eventos)
                 .Any(x => x.Tipo == tipo);
+        }
+
+        private int ObtemQtdOcorrenciasEventoNoPassado(PosicaoTL posicao, DateTime referencia, enumTipoEvento tipo)
+        {
+            return (posicao.IsPool ? posicao.Marcos : posicao.FuncionarioUnico.Marcos)
+                .Where(m => m.Referencia < referencia)
+                .SelectMany(m => m.Eventos)
+                .Count(x => x.Tipo == tipo);
         }
 
         private bool ExisteEventoNoFuturo(PosicaoTL posicao, DateTime referencia, enumTipoEvento tipo)
@@ -290,7 +312,7 @@ namespace TesteProjecoes
                 limparToolStripMenuItem.Enabled = marco.Eventos.Any();
                 toolStripMenuItem4.Enabled = !posicao.FuncionarioUnico.Admissao.HasValue && !ExisteEventoNaLinhaTempo(posicao, marco.Referencia, enumTipoEvento.Admissao);
                 toolStripMenuItem5.Enabled = !posicao.FuncionarioUnico.Rescisao.HasValue && !ExisteEventoNaLinhaTempo(posicao, marco.Referencia, enumTipoEvento.Demissao) && (posicao.FuncionarioUnico.Admissao.HasValue || ExisteEventoNoPassado(posicao, marco.Referencia, enumTipoEvento.Admissao));
-                subirDeCargoToolStripMenuItem.Enabled = posicao.FuncionarioUnico.Cargo.PodeSubirCargo() && !ExisteEventoNaLinhaTempo(posicao, marco.Referencia, enumTipoEvento.SubirCargo);
+                subirDeCargoToolStripMenuItem.Enabled = toolStripMenuItem5.Enabled && ObtemQtdOcorrenciasEventoNaLinhaTempo(posicao, marco.Referencia, enumTipoEvento.SubirCargo) < posicao.FuncionarioUnico.Cargo.ObterQtdPossivelPromocao();
                 e.ContextMenuStrip = xContextMenuStrip2;
             }
         }

@@ -13,16 +13,39 @@ namespace TesteProjecoes.Model.Extensions
             if (cargo.CargoMestre == null)
                 throw new Exception("Cargo-meste não localizado.");
 
-            if (cargo.CargoMestre.CargoNivel1.Id == cargo.Id)
-                return cargo.CargoMestre.CargoNivel2;
-            else if (cargo.CargoMestre.CargoNivel2.Id == cargo.Id)
-                return cargo.CargoMestre.CargoNivel3;
-            else if (cargo.CargoMestre.CargoNivel3.Id == cargo.Id)
-                return cargo.CargoMestre.CargoNivel4;
-            else if (cargo.CargoMestre.CargoNivel4.Id == cargo.Id)
-                return cargo.CargoMestre.CargoNivel5;
+            int id = 0;
+            if (cargo.CargoMestre.CargoNivel1Id == cargo.Id)
+                id = cargo.CargoMestre.CargoNivel2Id;
+            else if (cargo.CargoMestre.CargoNivel2Id == cargo.Id)
+                id = cargo.CargoMestre.CargoNivel3Id;
+            else if (cargo.CargoMestre.CargoNivel3Id == cargo.Id)
+                id = cargo.CargoMestre.CargoNivel4Id;
+            else if (cargo.CargoMestre.CargoNivel4Id == cargo.Id)
+                id = cargo.CargoMestre.CargoNivel5Id;
+            else
+                return null;
 
-            return null;
+            using (var context = new Context())
+            {
+                return context.Cargo.GetById(id);
+            }
+        }
+
+        public static int ObterQtdPossivelPromocao(this Cargo cargo)
+        {
+            if (cargo.CargoMestre == null)
+                throw new Exception("Cargo-meste não localizado.");
+            
+            if (cargo.CargoMestre.CargoNivel1Id == cargo.Id)
+                return 4;
+            else if (cargo.CargoMestre.CargoNivel2Id == cargo.Id)
+                return 3;
+            else if (cargo.CargoMestre.CargoNivel3Id == cargo.Id)
+                return 2;
+            else if (cargo.CargoMestre.CargoNivel4Id == cargo.Id)
+                return 1;
+
+            return 0;
         }
 
         public static bool PodeSubirCargo(this Cargo cargo)

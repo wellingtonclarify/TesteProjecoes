@@ -74,33 +74,33 @@ namespace TesteProjecoes.Model
                 new Cargo(20, "Programador MA", 8817.93M, cm4),
             }.ToList();
 
-            cm1.CargoNivel1 = Cargo.GetById(01);
-            cm1.CargoNivel2 = Cargo.GetById(02);
-            cm1.CargoNivel3 = Cargo.GetById(03);
-            cm1.CargoNivel4 = Cargo.GetById(04);
-            cm1.CargoNivel5 = Cargo.GetById(05);
-            cm2.CargoNivel1 = Cargo.GetById(06);
-            cm2.CargoNivel2 = Cargo.GetById(07);
-            cm2.CargoNivel3 = Cargo.GetById(08);
-            cm2.CargoNivel4 = Cargo.GetById(09);
-            cm2.CargoNivel5 = Cargo.GetById(10);
-            cm3.CargoNivel1 = Cargo.GetById(11);
-            cm3.CargoNivel2 = Cargo.GetById(12);
-            cm3.CargoNivel3 = Cargo.GetById(13);
-            cm3.CargoNivel4 = Cargo.GetById(14);
-            cm3.CargoNivel5 = Cargo.GetById(15);
-            cm4.CargoNivel1 = Cargo.GetById(16);
-            cm4.CargoNivel2 = Cargo.GetById(17);
-            cm4.CargoNivel3 = Cargo.GetById(18);
-            cm4.CargoNivel4 = Cargo.GetById(19);
-            cm4.CargoNivel5 = Cargo.GetById(20);
+            cm1.CargoNivel1 = Cargo.GetById(01); cm1.CargoNivel1Id = 01;
+            cm1.CargoNivel2 = Cargo.GetById(02); cm1.CargoNivel2Id = 02; 
+            cm1.CargoNivel3 = Cargo.GetById(03); cm1.CargoNivel3Id = 03; 
+            cm1.CargoNivel4 = Cargo.GetById(04); cm1.CargoNivel4Id = 04; 
+            cm1.CargoNivel5 = Cargo.GetById(05); cm1.CargoNivel5Id = 05; 
+            cm2.CargoNivel1 = Cargo.GetById(06); cm2.CargoNivel1Id = 06; 
+            cm2.CargoNivel2 = Cargo.GetById(07); cm2.CargoNivel2Id = 07; 
+            cm2.CargoNivel3 = Cargo.GetById(08); cm2.CargoNivel3Id = 08; 
+            cm2.CargoNivel4 = Cargo.GetById(09); cm2.CargoNivel4Id = 09; 
+            cm2.CargoNivel5 = Cargo.GetById(10); cm2.CargoNivel5Id = 10; 
+            cm3.CargoNivel1 = Cargo.GetById(11); cm3.CargoNivel1Id = 11; 
+            cm3.CargoNivel2 = Cargo.GetById(12); cm3.CargoNivel2Id = 12; 
+            cm3.CargoNivel3 = Cargo.GetById(13); cm3.CargoNivel3Id = 13; 
+            cm3.CargoNivel4 = Cargo.GetById(14); cm3.CargoNivel4Id = 14; 
+            cm3.CargoNivel5 = Cargo.GetById(15); cm3.CargoNivel5Id = 15; 
+            cm4.CargoNivel1 = Cargo.GetById(16); cm4.CargoNivel1Id = 16; 
+            cm4.CargoNivel2 = Cargo.GetById(17); cm4.CargoNivel2Id = 17; 
+            cm4.CargoNivel3 = Cargo.GetById(18); cm4.CargoNivel3Id = 18; 
+            cm4.CargoNivel4 = Cargo.GetById(19); cm4.CargoNivel4Id = 19; 
+            cm4.CargoNivel5 = Cargo.GetById(20); cm4.CargoNivel5Id = 20; 
 
             this.Funcionario = new[]
             {
                 new Funcionario(1, "Wellington", new DateTime(1992, 3, 6), "M", 5000.00M, Cargo.GetById(5), DateTime.Today),
-                new Funcionario(2, "Leonardo", new DateTime(2002, 3, 6), "M", 900.00M, Cargo.GetById(8), DateTime.Today),
+                new Funcionario(2, "Leonardo", new DateTime(2002, 3, 6), "M", 900.00M, Cargo.GetById(6), DateTime.Today),
                 new Funcionario(3, "Bianca", new DateTime(1992, 3, 6), "F", 5000.00M, Cargo.GetById(13), DateTime.Today),
-                new Funcionario(4, "Luiza", new DateTime(2002, 3, 6), "F", 900.00M, Cargo.GetById(18)),
+                new Funcionario(4, "Luiza", new DateTime(2002, 3, 6), "F", 900.00M, Cargo.GetById(16)),
             }.ToList();
 
             var c1 = new Criterio(1, 1, "Sexo = 'M'");
