@@ -105,13 +105,11 @@ namespace TesteProjecoes.Model
 
             var c1 = new Criterio(1, 1, "Sexo = 'M'");
             var c2 = new Criterio(2, 1, "Idade >= 16 And Idade <= 17");
-            //var c3 = new Criterio(3, 1, "Ativo = true");
             var c3 = new Criterio(3, 1, "Admissao IS NOT NULL");
             var c4 = new Criterio(4, 1, "Rescisao IS NULL");
 
             var c5 = new Criterio(5, 2, "Sexo = 'F'");
             var c6 = new Criterio(6, 2, "Idade IN (16,17)");
-            //var c7 = new Criterio(7, 2, "Ativo = true");
             var c7 = new Criterio(7, 2, "Admissao IS NOT NULL");
             var c8 = new Criterio(8, 2, "Rescisao IS NULL");
 
@@ -126,7 +124,9 @@ namespace TesteProjecoes.Model
             {
                 new Regra(1, "SalarioBase * 0.10") { Criterios = new [] { c1, c2, c3, c4}.ToList() },
                 new Regra(2, "SalarioBase * 0.11") { Criterios = new [] { c5, c6, c7, c8}.ToList() },
-                new Regra(3, "QtdHoras * 50") { Criterios = new [] { c9 }.ToList() },
+                new Regra(3, "SalarioBase * 0.90") { Criterios = new [] { c1, c2, c3, c4}.ToList() },
+                new Regra(4, "SalarioBase * 0.89") { Criterios = new [] { c5, c6, c7, c8}.ToList() },
+                new Regra(5, "QtdHoras * 50") { Criterios = new [] { c9 }.ToList() },
             }.ToList();
 
         }

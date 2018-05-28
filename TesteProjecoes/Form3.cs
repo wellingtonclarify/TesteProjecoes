@@ -128,7 +128,7 @@ namespace TesteProjecoes
             var referencia = DateTime.Parse(xDataGridView1.Columns[e.ColumnIndex].Name);
             if (IsCalcStep)
             {
-                e.Value = Calcular(posicao, referencia); 
+                e.Value = Calcular(posicao, referencia).ToString("N2"); 
             }
             else if(posicao.IsPool)
             {
@@ -186,13 +186,13 @@ namespace TesteProjecoes
                 {
                     modelAsAttributes = posicao.GetModelAsAttributes();
                     baseObject = posicao;
-                    regras = context.Regra.Where(r => r.Id == 3).ToList();
+                    regras = context.Regra.Where(r => r.Id == 5).ToList();
                 }
                 else
                 {
                     modelAsAttributes = posicao.FuncionarioUnico.GetModelAsAttributes();
                     baseObject = posicao.FuncionarioUnico;
-                    regras = context.Regra.Where(r => r.Id < 3).ToList();
+                    regras = context.Regra.Where(r => r.Id < 5).ToList();
                 } 
             }
 
