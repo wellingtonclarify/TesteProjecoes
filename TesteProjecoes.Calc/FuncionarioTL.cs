@@ -5,7 +5,7 @@ namespace TesteProjecoes.Calc
 {
     public class FuncionarioTL : Funcionario, IMarcos
     {
-        public IList<Marco> Marcos { get; set; }
+        public List<Marco> Marcos { get; set; }
 
         public FuncionarioTL()
         {

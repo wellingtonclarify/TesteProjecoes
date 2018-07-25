@@ -6,8 +6,8 @@ namespace TesteProjecoes.Calc
 {
     public class PosicaoTL : Posicao, IMarcos
     {
-        public IList<FuncionarioTL> Funcionarios { get; set; }
-        public IList<Marco> Marcos { get; set; }
+        public List<FuncionarioTL> Funcionarios { get; set; }
+        public List<Marco> Marcos { get; set; }
 
         public FuncionarioTL FuncionarioUnico => (Funcionarios != null && Funcionarios.Count == 1 ? Funcionarios.First() : null);
 

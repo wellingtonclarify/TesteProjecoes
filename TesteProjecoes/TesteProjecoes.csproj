@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CalcParams.cs" />
+    <Compile Include="Extensions\CalcParamsExtensions.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -164,9 +165,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Extensions\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\TesteProjecoes.Calc\TesteProjecoes.Calc.csproj">
       <Project>{5bf41279-3f0d-415a-91c2-3eb82e663913}</Project>

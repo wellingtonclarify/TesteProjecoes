@@ -56,7 +56,7 @@ namespace TesteProjecoes
             xDataGridView1.DataSource = source;
         }
 
-        private IList<Marco> GetMarcos()
+        private List<Marco> GetMarcos()
         {
             var result = new List<Marco>();
             for (DateTime i = xDateTimePickerMonth1.Value; i <= xDateTimePickerMonth2.Value; i = i.AddMonths(1))

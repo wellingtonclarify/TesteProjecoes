@@ -4,6 +4,6 @@ namespace TesteProjecoes.Calc
 {
     public interface IMarcos
     {
-        IList<Marco> Marcos { get; set; }
+        List<Marco> Marcos { get; set; }
     }
 }

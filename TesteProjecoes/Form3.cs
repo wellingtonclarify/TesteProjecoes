@@ -6,6 +6,7 @@ using System.Linq;
 using System.Windows.Forms;
 using TesteProjecoes.Calc;
 using TesteProjecoes.Calc.Extensions;
+using TesteProjecoes.Extensions;
 using TesteProjecoes.Model;
 using TesteProjecoes.Model.Extensions;
 
@@ -50,7 +51,7 @@ namespace TesteProjecoes
 
             if (!IsCalcStep)
             { 
-                _parametros.Source = new List<PosicaoTL>();
+                _parametros.Posicoes = new List<PosicaoTL>();
                 using (var context = new Context())
                 {
                     for (int i = 0; i < context.Posicao.Count; i++)
@@ -76,17 +77,25 @@ namespace TesteProjecoes
                             p.Funcionarios = new[] { new FuncionarioTL() { Id = context.Funcionario[i].Id, Nome = context.Funcionario[i].Nome, Nascimento = context.Funcionario[i].Nascimento, Sexo = context.Funcionario[i].Sexo, Salario = context.Funcionario[i].Salario, Cargo = context.Funcionario[i].Cargo, Admissao = context.Funcionario[i].Admissao, Rescisao = context.Funcionario[i].Rescisao } }.ToList();
                             p.FuncionarioUnico.Marcos = GetMarcos();
                         }
-                        _parametros.Source.Add(p);
+                        _parametros.Posicoes.Add(p);
                     }
                 } 
             }
-            xDataGridView1.DataSource = _parametros.Source;            
+            xDataGridView1.DataSource = _parametros.Posicoes;            
         }
 
-        private IList<Marco> GetMarcos()
+        private List<Marco> GetMarcos()
+        {
+            var dataInicial = xDateTimePickerMonth1.Value;
+            var dataFinal = xDateTimePickerMonth2.Value;
+            var result = GetMarcos(dataInicial, dataFinal);
+            return result;
+        }
+
+        private List<Marco> GetMarcos(DateTime dataInicial, DateTime dataFinal)
         {
             var result = new List<Marco>();
-            for (DateTime i = xDateTimePickerMonth1.Value; i <= xDateTimePickerMonth2.Value; i = i.AddMonths(1))
+            for (DateTime i = dataInicial; i <= dataFinal; i = i.AddMonths(1))
             {
                 result.Add(new Marco(i));
             }
@@ -171,8 +180,7 @@ namespace TesteProjecoes
 
         private double Calcular(PosicaoTL posicao, DateTime referencia)
         {
-            ResultDictionary results = null;
-            return Calcular(posicao, referencia, out results);
+            return Calcular(posicao, referencia, out ResultDictionary results);
         }
 
         private double Calcular(PosicaoTL posicao, DateTime referencia, out ResultDictionary results)
@@ -280,15 +288,7 @@ namespace TesteProjecoes
                 .SelectMany(m => m.Eventos)
                 .Count(x => x.Tipo == tipo);
         }
-
-        private bool ExisteEventoNoFuturo(PosicaoTL posicao, DateTime referencia, enumTipoEvento tipo)
-        {
-            return (posicao.IsPool ? posicao.Marcos : posicao.FuncionarioUnico.Marcos)
-                .Where(m => m.Referencia > referencia)
-                .SelectMany(m => m.Eventos)
-                .Any(x => x.Tipo == tipo);
-        }
-
+        
         private void xDataGridView1_CellContextMenuStripNeeded(object sender, DataGridViewCellContextMenuStripNeededEventArgs e)
         {
             if (e.RowIndex == -1 || e.ColumnIndex < 2)
@@ -402,6 +402,8 @@ namespace TesteProjecoes
 
         private void btnCalcular_Click(object sender, EventArgs e)
         {
+            //var derivado = _parametros.GerarDerivado(_parametros.DataInicial.AddMonths(3), _parametros.DataFinal.AddMonths(2));
+
             var frm = new Form3(_parametros);
             frm.Show();
         }
@@ -425,8 +427,7 @@ namespace TesteProjecoes
 
         private void verDetalhesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ResultDictionary results;
-            Calcular(out results);
+            Calcular(out ResultDictionary results);
             var text = string.Join(Environment.NewLine, results.Select(r => string.Format("{0} = {1}", r.Key, r.Value)));
             if (string.IsNullOrEmpty(text))
                 text = "Sem resultados";
