@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using TesteProjecoes.Calc;
+using TesteProjecoes.Model;
 using TesteProjecoes.Model.Extensions;
 
 namespace TesteProjecoes.Extensions
@@ -26,7 +27,45 @@ namespace TesteProjecoes.Extensions
                 Origem = calcParams,
             };
         }
-        
+
+        public static void FillPositions(this CalcParams calcParams)
+        {
+            calcParams.Posicoes = new List<PosicaoTL>();
+            using (var context = new Context())
+            {
+                for (int i = 0; i < context.Posicao.Count; i++)
+                {
+                    var posicao = context.Posicao[i];
+                    /*
+                    var modelAsAttributes = posicao.GetModelAsAttributes();
+                    var parameters = new CalculatorParams(modelAsAttributes, context.Regra);
+                    var result = new Calculator(parameters).Calculate();
+                    */
+                    var p = new PosicaoTL()
+                    {
+                        Id = posicao.Id,
+                        Nome = posicao.Nome,
+                    };
+                    if (posicao.IsPool)
+                    {
+                        p.QtdHoras = posicao.QtdHoras;
+                        p.Marcos = calcParams.GetMarcos();
+                    }
+                    else
+                    {
+                        p.Funcionarios = new[] { new FuncionarioTL() { Id = context.Funcionario[i].Id, Nome = context.Funcionario[i].Nome, Nascimento = context.Funcionario[i].Nascimento, Sexo = context.Funcionario[i].Sexo, Salario = context.Funcionario[i].Salario, Cargo = context.Funcionario[i].Cargo, Admissao = context.Funcionario[i].Admissao, Rescisao = context.Funcionario[i].Rescisao } }.ToList();
+                        p.FuncionarioUnico.Marcos = calcParams.GetMarcos();
+                    }
+                    calcParams.Posicoes.Add(p);
+                }
+            }
+        }
+
+        private static List<Marco> GetMarcos(this CalcParams calcParams)
+        {
+            return GetMarcos(calcParams.DataInicial, calcParams.DataFinal);
+        }
+
         private static List<Marco> GetMarcos(DateTime dataInicial, DateTime dataFinal)
         {
             var result = new List<Marco>();

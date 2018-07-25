@@ -13,9 +13,9 @@
 
     public enum enumTipoEvento
     {
-        Admissao,
-        Demissao,
-        AlteraQtdPool,
-        SubirCargo
+        Admissao = 1,
+        Demissao = 2,
+        AlteraQtdPool = 3,
+        SubirCargo = 4
     }
 }
