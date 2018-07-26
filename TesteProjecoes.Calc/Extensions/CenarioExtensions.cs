@@ -14,7 +14,7 @@ namespace TesteProjecoes.Calc.Extensions
             foreach (var posicao in posicoes)
             {
                 posicao.Marcos = posicao.Marcos.Where(p => p.Referencia.IsBetween(dataInicial, dataFinal)).ToList();
-                posicao.Marcos.AddRange(GetMarcos(calcParams.DataFinal.AddMonths(1), dataFinal));
+                posicao.Marcos.AddRange(GetMarcos(calcParams.DataFinal.AddMonths(1), dataFinal, posicao));
             }
 
             return new Cenario()
@@ -48,29 +48,29 @@ namespace TesteProjecoes.Calc.Extensions
                     if (posicao.IsPool)
                     {
                         p.QtdHoras = posicao.QtdHoras;
-                        p.Marcos = calcParams.GetMarcos();
+                        p.Marcos = calcParams.GetMarcos(p);
                     }
                     else
                     {
                         p.Funcionarios = new[] { new FuncionarioTL() { Id = context.Funcionario[i].Id, Nome = context.Funcionario[i].Nome, Nascimento = context.Funcionario[i].Nascimento, Sexo = context.Funcionario[i].Sexo, Salario = context.Funcionario[i].Salario, Cargo = context.Funcionario[i].Cargo, Admissao = context.Funcionario[i].Admissao, Rescisao = context.Funcionario[i].Rescisao } }.ToList();
-                        p.FuncionarioUnico.Marcos = calcParams.GetMarcos();
+                        p.FuncionarioUnico.Marcos = calcParams.GetMarcos(p);
                     }
                     calcParams.Posicoes.Add(p);
                 }
             }
         }
 
-        private static List<Marco> GetMarcos(this Cenario calcParams)
+        private static List<Marco> GetMarcos(this Cenario calcParams, PosicaoTL posicao)
         {
-            return GetMarcos(calcParams.DataInicial, calcParams.DataFinal);
+            return GetMarcos(calcParams.DataInicial, calcParams.DataFinal, posicao);
         }
 
-        private static List<Marco> GetMarcos(DateTime dataInicial, DateTime dataFinal)
+        private static List<Marco> GetMarcos(DateTime dataInicial, DateTime dataFinal, PosicaoTL posicao)
         {
             var result = new List<Marco>();
             for (DateTime i = dataInicial; i <= dataFinal; i = i.AddMonths(1))
             {
-                result.Add(new Marco(i));
+                result.Add(new Marco(i, posicao));
             }
             return result;
         }

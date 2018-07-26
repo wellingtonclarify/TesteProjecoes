@@ -181,12 +181,6 @@ namespace TesteProjecoes
         {            
             var marco = GetMarco();
 
-            if ((tipo == enumTipoEvento.Admissao || tipo == enumTipoEvento.Demissao) && GetPosicao().ExisteEventoNaLinhaTempo(marco.Referencia, tipo))
-            {
-                MessageBox.Show("Evento já existente na linha do tempo.");
-                return;
-            }
-
             try
             {
                 marco.AdicionaEvento(tipo);

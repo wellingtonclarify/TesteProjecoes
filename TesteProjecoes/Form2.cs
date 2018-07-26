@@ -43,12 +43,12 @@ namespace TesteProjecoes
                     if (posicao.IsPool)
                     {
                         p.QtdHoras = posicao.QtdHoras;
-                        p.Marcos = GetMarcos();
+                        p.Marcos = GetMarcos(p);
                     }
                     else
                     {
                         p.Funcionarios = new[] { new FuncionarioTL() { Id = context.Funcionario[i].Id, Nome = context.Funcionario[i].Nome, Nascimento = context.Funcionario[i].Nascimento, Sexo = context.Funcionario[i].Sexo, Salario = context.Funcionario[i].Salario, Admissao = context.Funcionario[i].Admissao, Rescisao = context.Funcionario[i].Rescisao } }.ToList();
-                        p.FuncionarioUnico.Marcos = GetMarcos();
+                        p.FuncionarioUnico.Marcos = GetMarcos(p);
                     }
                     source.Add(p);
                 }
@@ -56,12 +56,12 @@ namespace TesteProjecoes
             xDataGridView1.DataSource = source;
         }
 
-        private List<Marco> GetMarcos()
+        private List<Marco> GetMarcos(PosicaoTL posicao)
         {
             var result = new List<Marco>();
             for (DateTime i = xDateTimePickerMonth1.Value; i <= xDateTimePickerMonth2.Value; i = i.AddMonths(1))
             {
-                result.Add(new Marco(i));
+                result.Add(new Marco(i, posicao));
             }
             return result;
         }
