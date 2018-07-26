@@ -7,11 +7,11 @@ namespace TesteProjecoes.Model
     {
         public string Nome { get; set; }
 
-        public int CargoNivel1Id { get; set; }
-        public int CargoNivel2Id { get; set; }
-        public int CargoNivel3Id { get; set; }
-        public int CargoNivel4Id { get; set; }
-        public int CargoNivel5Id { get; set; }
+        public int? CargoNivel1Id { get; set; }
+        public int? CargoNivel2Id { get; set; }
+        public int? CargoNivel3Id { get; set; }
+        public int? CargoNivel4Id { get; set; }
+        public int? CargoNivel5Id { get; set; }
 
         [JsonIgnore]
         public Cargo CargoNivel1 { get; set; }

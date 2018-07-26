@@ -15,13 +15,13 @@ namespace TesteProjecoes.Model.Extensions
 
             int id = 0;
             if (cargo.CargoMestre.CargoNivel1Id == cargo.Id)
-                id = cargo.CargoMestre.CargoNivel2Id;
+                id = cargo.CargoMestre.CargoNivel2Id.Value;
             else if (cargo.CargoMestre.CargoNivel2Id == cargo.Id)
-                id = cargo.CargoMestre.CargoNivel3Id;
+                id = cargo.CargoMestre.CargoNivel3Id.Value;
             else if (cargo.CargoMestre.CargoNivel3Id == cargo.Id)
-                id = cargo.CargoMestre.CargoNivel4Id;
+                id = cargo.CargoMestre.CargoNivel4Id.Value;
             else if (cargo.CargoMestre.CargoNivel4Id == cargo.Id)
-                id = cargo.CargoMestre.CargoNivel5Id;
+                id = cargo.CargoMestre.CargoNivel5Id.Value;
             else
                 return null;
 
