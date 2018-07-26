@@ -1,20 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using TesteProjecoes.Calc;
 using TesteProjecoes.Calc.Extensions;
-using TesteProjecoes.Extensions;
-using TesteProjecoes.Model;
 using TesteProjecoes.Model.Extensions;
 
 namespace TesteProjecoes
 {
     public partial class Form3 : TesteProjecoes.UserControls.XForm
     {
-        Cenario _parametros = new Cenario();
+        Cenario _cenario = new Cenario();
         bool IsCalcStep = false;
 
         public Form3()
@@ -24,13 +21,13 @@ namespace TesteProjecoes
 
         public Form3(Cenario parametros) : this()
         {
-            _parametros = parametros;
+            _cenario = parametros;
             IsCalcStep = true;
             xButton1.Visible = false;
             btnCalcular.Visible = false;
-            xCheckBox1.Checked = _parametros.AplicarCores;
-            xDateTimePickerMonth1.Value = _parametros.DataInicial;
-            xDateTimePickerMonth2.Value = _parametros.DataFinal;
+            xCheckBox1.Checked = _cenario.AplicarCores;
+            xDateTimePickerMonth1.Value = _cenario.DataInicial;
+            xDateTimePickerMonth2.Value = _cenario.DataFinal;
             xDateTimePickerMonth1.Enabled = false;
             xDateTimePickerMonth2.Enabled = false;
             Gerar();
@@ -44,16 +41,16 @@ namespace TesteProjecoes
 
         private void Gerar()
         {
-            _parametros.DataInicial = xDateTimePickerMonth1.Value;
-            _parametros.DataFinal = xDateTimePickerMonth2.Value;
-            _parametros.AplicarCores = xCheckBox1.Checked;
+            _cenario.DataInicial = xDateTimePickerMonth1.Value;
+            _cenario.DataFinal = xDateTimePickerMonth2.Value;
+            _cenario.AplicarCores = xCheckBox1.Checked;
             GeraColunasTimeLine();
 
             if (!IsCalcStep)
             {
-                _parametros.FillPositions();
+                _cenario.FillPositions();
             }
-            xDataGridView1.DataSource = _parametros.Posicoes;            
+            xDataGridView1.DataSource = _cenario.Posicoes;            
         }
         
         private void GeraColunasTimeLine()
@@ -62,7 +59,7 @@ namespace TesteProjecoes
             {
                 xDataGridView1.Columns.RemoveAt(2);
             }
-            for (DateTime i = _parametros.DataInicial; i <= _parametros.DataFinal; i = i.AddMonths(1))
+            for (DateTime i = _cenario.DataInicial; i <= _cenario.DataFinal; i = i.AddMonths(1))
             {
                 var col = new DataGridViewTextBoxColumn();
                 col.Name = i.ToString("dd/MM/yyyy");
@@ -103,19 +100,19 @@ namespace TesteProjecoes
         private void SetCellStyle(PosicaoTL posicao, DateTime referencia, DataGridViewCellStyle cellStyle)
         {
             var marco = posicao.GetMarco(referencia);
-            if(_parametros.AplicarCores && marco.Eventos.Any(x => x.Tipo == enumTipoEvento.Admissao))
+            if(_cenario.AplicarCores && marco.Eventos.Any(x => x.Tipo == enumTipoEvento.Admissao))
             {
                 cellStyle.BackColor = Color.Green;
             }
-            else if(_parametros.AplicarCores && marco.Eventos.Any(x => x.Tipo == enumTipoEvento.Demissao))
+            else if(_cenario.AplicarCores && marco.Eventos.Any(x => x.Tipo == enumTipoEvento.Demissao))
             {
                 cellStyle.BackColor = Color.Red;
             }
-            else if(_parametros.AplicarCores && marco.Eventos.Any(x => x.Tipo == enumTipoEvento.SubirCargo))
+            else if(_cenario.AplicarCores && marco.Eventos.Any(x => x.Tipo == enumTipoEvento.SubirCargo))
             {
                 cellStyle.BackColor = Color.Blue;
             }
-            else if (_parametros.AplicarCores && marco.Eventos.Any(x => x.Tipo == enumTipoEvento.AlteraQtdPool))
+            else if (_cenario.AplicarCores && marco.Eventos.Any(x => x.Tipo == enumTipoEvento.AlteraQtdPool))
             {
                 cellStyle.BackColor = Color.Yellow;
             }
@@ -235,9 +232,9 @@ namespace TesteProjecoes
 
         private void btnCalcular_Click(object sender, EventArgs e)
         {
-            //var derivado = _parametros.GerarDerivado(_parametros.DataInicial.AddMonths(3), _parametros.DataFinal.AddMonths(2));
+            //var derivado = _cenario.GerarDerivado(_cenario.DataInicial.AddMonths(3), _cenario.DataFinal.AddMonths(2));
 
-            var frm = new Form3(_parametros);
+            var frm = new Form3(_cenario);
             frm.Show();
         }
 
@@ -254,7 +251,7 @@ namespace TesteProjecoes
 
         private void xCheckBox1_CheckedChanged(object sender, EventArgs e)
         {
-            _parametros.AplicarCores = xCheckBox1.Checked;
+            _cenario.AplicarCores = xCheckBox1.Checked;
             xDataGridView1.Refresh();
         }
 

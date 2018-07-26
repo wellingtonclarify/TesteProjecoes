@@ -40,12 +40,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cenario.cs" />
     <Compile Include="Evento.cs" />
+    <Compile Include="Extensions\CenarioExtensions.cs" />
     <Compile Include="Extensions\EventoExtensions.cs" />
     <Compile Include="Extensions\MarcoExtensions.cs" />
     <Compile Include="Extensions\PosicaoTLExtensions.cs" />
     <Compile Include="Extensions\ResultDictionaryExtensions.cs" />
-    <Compile Include="Extensions\TLExtensions.cs" />
     <Compile Include="FuncionarioTL.cs" />
     <Compile Include="IMarcos.cs" />
     <Compile Include="PosicaoTL.cs" />

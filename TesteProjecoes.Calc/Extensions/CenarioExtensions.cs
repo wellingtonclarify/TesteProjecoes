@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using TesteProjecoes.Calc;
 using TesteProjecoes.Model;
 using TesteProjecoes.Model.Extensions;
 
-namespace TesteProjecoes.Extensions
+namespace TesteProjecoes.Calc.Extensions
 {
-    public static class CalcParamsExtensions
+    public static class CenarioExtensions
     {
         public static Cenario GerarDerivado(this Cenario calcParams, DateTime dataInicial, DateTime dataFinal)
         {
