@@ -14,7 +14,7 @@ namespace TesteProjecoes
 {
     public partial class Form3 : TesteProjecoes.UserControls.XForm
     {
-        CalcParams _parametros = new CalcParams();
+        Cenario _parametros = new Cenario();
         bool IsCalcStep = false;
 
         public Form3()
@@ -22,7 +22,7 @@ namespace TesteProjecoes
             InitializeComponent();
         }
 
-        public Form3(CalcParams parametros) : this()
+        public Form3(Cenario parametros) : this()
         {
             _parametros = parametros;
             IsCalcStep = true;

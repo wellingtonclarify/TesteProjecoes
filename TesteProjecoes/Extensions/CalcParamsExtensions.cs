@@ -9,7 +9,7 @@ namespace TesteProjecoes.Extensions
 {
     public static class CalcParamsExtensions
     {
-        public static CalcParams GerarDerivado(this CalcParams calcParams, DateTime dataInicial, DateTime dataFinal)
+        public static Cenario GerarDerivado(this Cenario calcParams, DateTime dataInicial, DateTime dataFinal)
         {
             var posicoes = calcParams.Posicoes.Clone();
             foreach (var posicao in posicoes)
@@ -18,7 +18,7 @@ namespace TesteProjecoes.Extensions
                 posicao.Marcos.AddRange(GetMarcos(calcParams.DataFinal.AddMonths(1), dataFinal));
             }
 
-            return new CalcParams()
+            return new Cenario()
             {
                 DataInicial = dataInicial,
                 DataFinal = dataFinal,
@@ -28,7 +28,7 @@ namespace TesteProjecoes.Extensions
             };
         }
 
-        public static void FillPositions(this CalcParams calcParams)
+        public static void FillPositions(this Cenario calcParams)
         {
             calcParams.Posicoes = new List<PosicaoTL>();
             using (var context = new Context())
@@ -61,7 +61,7 @@ namespace TesteProjecoes.Extensions
             }
         }
 
-        private static List<Marco> GetMarcos(this CalcParams calcParams)
+        private static List<Marco> GetMarcos(this Cenario calcParams)
         {
             return GetMarcos(calcParams.DataInicial, calcParams.DataFinal);
         }
